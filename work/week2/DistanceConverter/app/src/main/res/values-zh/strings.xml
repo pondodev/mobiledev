@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">距离转换器</string>
+    <string name="centimetres_display">%.2f 公分</string>
+    <string name="convert_button">兑换!</string>
+    <string name="default_display">输入上面的值!</string>
+    <string name="feet_label">尺</string>
+    <string name="inches_label">英寸</string>
+    <string name="metres_checkbox">显示仪表</string>
+    <string name="metres_display">%.2f 米</string>
+    <string name="miles_label">英里</string>
+    <string name="multivalue_display">请输入单个值</string>
+    <string name="novalue_display">请输入要转换的值</string>
+</resources>
