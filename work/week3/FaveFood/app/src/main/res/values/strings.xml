@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FaveFood</string>
+    <string name="go_back">Go Back</string>
+    <string name="description">TextView</string>
+    <string name="pizza">pizza</string>
+    <string name="nachos">nachos</string>
+    <string name="takis">takis</string>
+    <string name="thewreck">the wreck</string>
 </resources>
