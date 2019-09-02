@@ -1,43 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
-    <TableLayout
-            android:layout_width="189dp"
-            android:layout_height="571dp" tools:layout_editor_absoluteY="15dp" tools:layout_editor_absoluteX="110dp"
-            android:id="@+id/tblImages">
 
-        <TableRow android:layout_width="326dp" android:layout_height="match_parent">
+    <TableLayout
+            android:id="@+id/tblImages"
+            android:layout_width="104dp"
+            android:layout_height="408dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+                android:layout_width="326dp"
+                android:layout_height="match_parent">
+
             <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp" app:srcCompat="@drawable/pizza"
                     android:id="@+id/imgPizza"
-            />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:onClick="viewPizza"
+                    app:srcCompat="@drawable/pizza" />
         </TableRow>
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
             <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="139dp" app:srcCompat="@drawable/nachos"
                     android:id="@+id/imgNachos"
-            />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:onClick="viewNachos"
+                    app:srcCompat="@drawable/nachos" />
         </TableRow>
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
             <ImageView
-                    android:layout_width="180dp"
-                    android:layout_height="150dp" app:srcCompat="@drawable/takis"
                     android:id="@+id/imgTakis"
-            />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:onClick="viewTakis"
+                    app:srcCompat="@drawable/takis" />
         </TableRow>
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
             <ImageView
-                    android:layout_width="180dp"
-                    android:layout_height="139dp" app:srcCompat="@drawable/thewreck"
                     android:id="@+id/imgTheWreck"
-            />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:onClick="viewTheWreck"
+                    app:srcCompat="@drawable/thewreck" />
         </TableRow>
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
