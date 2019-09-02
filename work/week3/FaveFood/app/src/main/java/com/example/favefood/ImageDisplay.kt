@@ -13,8 +13,10 @@ class ImageDisplay : AppCompatActivity() {
         setContentView(R.layout.activity_image_display)
 
         // get the content from the intent that started this activity
-        val message = intent.getStringExtra("message")
-        lblTest.text = message
+        val message = intent.getStringExtra("description")
+        val id = intent.getIntExtra("id", 0)
+        lblDescription.text = message
+        imgLorge.setImageDrawable(resources.getDrawable(id))
     }
 
     // called when we wish to go back to the main activity
