@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         "idk",
         false,
         "yes@yes.com",
-        5
+        5.0f
     )
     var germanShepard = ImageInfo(
         "german shepard",
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         "idk",
         false,
         "yes@yes.com",
-        5
+        5.0f
     )
     var jackRussel = ImageInfo(
         "jack russel",
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         "idk",
         false,
         "yes@yes.com",
-        5
+        5.0f
     )
     var kelpie = ImageInfo(
         "kelpie",
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         "idk",
         false,
         "yes@yes.com",
-        5
+        5.0f
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

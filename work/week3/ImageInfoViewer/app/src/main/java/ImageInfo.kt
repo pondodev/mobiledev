@@ -9,5 +9,5 @@ data class ImageInfo (
     var date: String,
     var share: Boolean,
     var email: String,
-    var rating: Int
+    var rating: Float
 ) : Parcelable
