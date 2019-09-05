@@ -8,8 +8,9 @@
     tools:context=".MainActivity">
 
     <TableLayout
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:id="@+id/tableLayout"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,11 +26,12 @@
                 android:layout_height="100dp"
                 app:srcCompat="@drawable/bordercollie" />
 
-            <ImageView
-                android:id="@+id/imgGermanShepard"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/germanshepard" />
+            <TextView
+                android:id="@+id/lblBorderCollie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
         </TableRow>
 
         <TableRow
@@ -37,17 +39,53 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/imgGermanShepard"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/germanshepard" />
+
+            <TextView
+                android:id="@+id/lblGermanShepard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
                 android:id="@+id/imgJackRussel"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:srcCompat="@drawable/jackrussel" />
+
+            <TextView
+                android:id="@+id/lblJackRussel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imgKelpie"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:srcCompat="@drawable/kelpie" />
+
+            <TextView
+                android:id="@+id/lblKelpie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
         </TableRow>
 
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
