@@ -3,6 +3,8 @@ package com.example.imageinfoviewer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ImageInfo
+import android.content.Intent
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -52,10 +54,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // i know i can do this in a more memory efficient way but this is more readable
-        doggos.add(borderCollie)
-        doggos.add(germanShepard)
-        doggos.add(jackRussel)
-        doggos.add(kelpie)
+        try {
+            doggos = intent.getParcelableArrayListExtra("doggos") // lmao so hacky
+        } catch (e: IllegalStateException) {
+            doggos.add(borderCollie)
+            doggos.add(germanShepard)
+            doggos.add(jackRussel)
+            doggos.add(kelpie)
+        }
 
         updateLabels()
     }
@@ -81,5 +87,42 @@ class MainActivity : AppCompatActivity() {
         lblGermanShepard.text = germanShepardInfo
         lblJackRussel.text = jackRusselInfo
         lblKelpie.text = kelpieInfo
+    }
+
+    fun viewBorderCollie(view: View) {
+        val intent = Intent(this, ViewImageInfo::class.java).apply {
+            putExtra("index", 0)
+            putExtra("doggos", doggos)
+        }
+
+        startActivity(intent)
+    }
+
+    fun viewGermanShepard(view: View) {
+        //
+        val intent = Intent(this, ViewImageInfo::class.java).apply {
+            putExtra("index", 1)
+            putExtra("doggos", doggos)
+        }
+
+        startActivity(intent)
+    }
+
+    fun viewJackRussel(view: View) {
+        val intent = Intent(this, ViewImageInfo::class.java).apply {
+            putExtra("index", 2)
+            putExtra("doggos", doggos)
+        }
+
+        startActivity(intent)
+    }
+
+    fun viewKelpie(view: View) {
+        val intent = Intent(this, ViewImageInfo::class.java).apply {
+            putExtra("index", 3)
+            putExtra("doggos", doggos)
+        }
+
+        startActivity(intent)
     }
 }

@@ -24,6 +24,7 @@
                 android:id="@+id/imgBorderCollie"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:onClick="viewBorderCollie"
                 app:srcCompat="@drawable/bordercollie" />
 
             <TextView
@@ -42,6 +43,7 @@
                 android:id="@+id/imgGermanShepard"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:onClick="viewGermanShepard"
                 app:srcCompat="@drawable/germanshepard" />
 
             <TextView
@@ -59,6 +61,7 @@
                 android:id="@+id/imgJackRussel"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:onClick="viewJackRussel"
                 app:srcCompat="@drawable/jackrussel" />
 
             <TextView
@@ -76,6 +79,7 @@
                 android:id="@+id/imgKelpie"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:onClick="viewKelpie"
                 app:srcCompat="@drawable/kelpie" />
 
             <TextView
