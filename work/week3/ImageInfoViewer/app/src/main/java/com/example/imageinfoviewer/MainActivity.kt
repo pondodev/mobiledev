@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     // construct the initial image info
     var borderCollie = ImageInfo(
         "border collie",
-        "google.com",
+        "https://www.google.com/",
         "dog, bork, good boye",
         "idk",
         false,
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     )
     var germanShepard = ImageInfo(
         "german shepard",
-        "google.com",
+        "https://www.google.com/",
         "dog, bork, good boye",
         "idk",
         false,
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     )
     var jackRussel = ImageInfo(
         "jack russel",
-        "google.com",
+        "https://www.google.com/",
         "dog, bork, good boye",
         "idk",
         false,
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     )
     var kelpie = ImageInfo(
         "kelpie",
-        "google.com",
+        "https://www.google.com/",
         "dog, bork, good boye",
         "idk",
         false,

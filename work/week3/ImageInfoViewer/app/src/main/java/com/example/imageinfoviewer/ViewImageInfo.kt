@@ -5,6 +5,8 @@ import android.os.Bundle
 import ImageInfo
 import android.content.Intent
 import android.view.View
+import com.wajahatkarim3.easyvalidation.core.view_ktx.validEmail
+import com.wajahatkarim3.easyvalidation.core.view_ktx.validUrl
 import kotlinx.android.synthetic.main.activity_view_image_info.*
 import org.jetbrains.anko.longToast
 
@@ -37,14 +39,14 @@ class ViewImageInfo : AppCompatActivity() {
             longToast("the name field cannot be blank")
         }
 
-        if (txtLocation.text.toString() == "") {
+        if (txtLocation.text.toString() == "" || !txtLocation.validUrl()) {
             errors = true
-            longToast("the location field cannot be blank")
+            longToast("you must enter a valid URL")
         }
 
-        if (txtEmail.text.toString() == "") {
+        if (txtEmail.text.toString() == "" || !txtEmail.validEmail()) {
             errors = true
-            longToast("the email field cannot be blank")
+            longToast("you must enter a valid email")
         }
 
         // we don't want to continue any further if we have any errors present
