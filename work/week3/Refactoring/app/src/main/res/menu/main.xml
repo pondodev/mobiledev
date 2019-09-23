@@ -6,4 +6,9 @@
         android:id="@+id/menuShare"
         />
 
+    <item
+        android:title="Generate Table"
+        android:id="@+id/menuGenerateTable"
+        />
+
 </menu>

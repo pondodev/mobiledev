@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.share
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menuShare -> share()
+            R.id.menuGenerateTable -> generateTable()
         }
 
         return super.onOptionsItemSelected(item)
@@ -53,6 +55,14 @@ class MainActivity : AppCompatActivity() {
                   " Sunset: " + sunset
 
         share(data)
+    }
+
+    private fun generateTable() {
+        startActivity(intentFor<GenerateTable>(
+            "city" to currentFragment.city,
+            "lat" to currentFragment.lat,
+            "lon" to currentFragment.lon
+        ))
     }
 
     private fun initFragment(city: String, lat: Double, lon: Double): Fragment {
