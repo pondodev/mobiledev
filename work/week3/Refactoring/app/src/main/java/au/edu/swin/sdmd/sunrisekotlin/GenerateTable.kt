@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import au.edu.swin.sdmd.sunrisekotlin.calc.AstronomicalCalendar
+import au.edu.swin.sdmd.sunrisekotlin.calc.GeoLocation
 import kotlinx.android.synthetic.main.activity_generate_table.*
+import kotlinx.android.synthetic.main.fragment_info_view.*
 import org.jetbrains.anko.longToast
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.log
 
 class GenerateTable : AppCompatActivity() {
 
@@ -102,10 +104,25 @@ class GenerateTable : AppCompatActivity() {
         // Date.time returns the unix timestamp in milliseconds
         // there's 86400000 milliseconds in a day, so we increment by that each time
         for (i in startDate.time..endDate.time step 86400000) {
-            data.add(DateEntry(sdf.format(i), "00:00", "00:00"))
+            val d = Date(i)
+            val (sunrise, sunset) = getTimes(d.year, d.month, d.day)
+            data.add(DateEntry(sdf.format(i), sunrise, sunset))
         }
 
         dateEntryAdapter.submitList(data)
         dateEntryAdapter.notifyDataSetChanged()
+    }
+
+    private fun getTimes(year: Int, monthOfYear: Int, dayOfMonth: Int) : Pair<String, String> {
+        val tz = TimeZone.getDefault()
+        val geolocation = GeoLocation(city, lat, lon, tz)
+        val ac = AstronomicalCalendar(geolocation)
+        ac.getCalendar().set(year, monthOfYear, dayOfMonth)
+        val srise = ac.getSunrise()
+        val sset = ac.getSunset()
+
+        val sdf = SimpleDateFormat("HH:mm")
+
+        return Pair(sdf.format(srise), sdf.format(sset))
     }
 }
