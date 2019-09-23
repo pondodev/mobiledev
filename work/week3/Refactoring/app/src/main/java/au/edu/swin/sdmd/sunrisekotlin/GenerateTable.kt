@@ -3,10 +3,15 @@ package au.edu.swin.sdmd.sunrisekotlin
 import android.app.DatePickerDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_generate_table.*
+import org.jetbrains.anko.longToast
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.log
 
 class GenerateTable : AppCompatActivity() {
 
@@ -17,7 +22,6 @@ class GenerateTable : AppCompatActivity() {
     private lateinit var endDate: Date
 
     private lateinit var dateEntryAdapter: DateEntryRecyclerAdapter
-    private lateinit var data: List<DateEntry>
 
     var sdf = SimpleDateFormat("dd MMM YYYY", Locale.UK)
 
@@ -37,6 +41,13 @@ class GenerateTable : AppCompatActivity() {
         endDate = Calendar.getInstance().time
         txtStartDate.text = sdf.format(startDate)
         txtEndDate.text = sdf.format(endDate)
+
+        // recycler view stuffs
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@GenerateTable)
+            dateEntryAdapter = DateEntryRecyclerAdapter()
+            adapter = dateEntryAdapter
+        }
     }
 
     // called when we open up date picker to choose start date
@@ -75,5 +86,26 @@ class GenerateTable : AppCompatActivity() {
             now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH))
 
         datePicker.show()
+    }
+
+    fun generate(_v: View) {
+        // check if the start date is after the end date
+        if (startDate.time > endDate.time) {
+            longToast("Please ensure the start date is not after the end date")
+            return
+        }
+
+        // we can now show all the dates
+        var data = ArrayList<DateEntry>()
+
+        // iterate through each day
+        // Date.time returns the unix timestamp in milliseconds
+        // there's 86400000 milliseconds in a day, so we increment by that each time
+        for (i in startDate.time..endDate.time step 86400000) {
+            data.add(DateEntry(sdf.format(i), "00:00", "00:00"))
+        }
+
+        dateEntryAdapter.submitList(data)
+        dateEntryAdapter.notifyDataSetChanged()
     }
 }
