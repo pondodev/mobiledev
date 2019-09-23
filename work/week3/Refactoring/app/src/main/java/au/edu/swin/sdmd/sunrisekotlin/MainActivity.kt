@@ -5,13 +5,17 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
+import android.util.SparseArray
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_info_view.*
 import org.jetbrains.anko.share
 
 class MainActivity : AppCompatActivity() {
+
+    var currentFragment: InfoView = InfoView()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +45,9 @@ class MainActivity : AppCompatActivity() {
 
     // called when we tap the share option
     private fun share() {
-        var city = locationTV.text.toString()
-        var sunrise = sunriseTimeTV.text.toString()
-        var sunset = sunsetTimeTV.text.toString()
+        var city = currentFragment.city
+        var sunrise = currentFragment.sunrise
+        var sunset = currentFragment.sunset
         val data = "City: " + city +
                   " Sunrise: " + sunrise +
                   " Sunset: " + sunset
@@ -71,6 +75,16 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(sydney, "Sydney")
         adapter.addFragment(canberra, "Canberra")
 
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(p0: Int) { }
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+                currentFragment = adapter.getRegisteredFragment(p0) as InfoView
+            }
+
+            override fun onPageSelected(p0: Int) { }
+        })
+
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
     }
@@ -79,6 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         private val fragmentList : MutableList<Fragment> = ArrayList()
         private val titleList : MutableList<String> = ArrayList()
+        private val registeredFragments = SparseArray<Fragment>()
 
         override fun getItem(p0: Int) = fragmentList[p0]
 
@@ -90,5 +105,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getPageTitle(position: Int) = titleList[position]
+
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            val fragment = super.instantiateItem(container, position) as Fragment
+            registeredFragments.put(position, fragment)
+
+            return fragment
+        }
+
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            registeredFragments.remove(position)
+            super.destroyItem(container, position, `object`)
+        }
+
+        fun getRegisteredFragment(pos: Int) = registeredFragments[pos]
     }
 }

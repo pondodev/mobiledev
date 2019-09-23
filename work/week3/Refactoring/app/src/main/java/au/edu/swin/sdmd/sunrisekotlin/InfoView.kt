@@ -15,9 +15,11 @@ import java.util.*
 
 class InfoView : Fragment() {
 
-    private lateinit var city: String
-    private var lat: Double = 0.0
-    private var lon: Double = 0.0
+    lateinit var city: String
+    var lat: Double = 0.0
+    var lon: Double = 0.0
+    lateinit var sunrise: String
+    lateinit var sunset: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +57,6 @@ class InfoView : Fragment() {
 
     private fun updateTime(year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val tz = TimeZone.getDefault()
-        //val geolocation = GeoLocation("Melbourne", -37.50, 145.01, tz)
         val geolocation = GeoLocation(city, lat, lon, tz)
         val ac = AstronomicalCalendar(geolocation)
         ac.getCalendar().set(year, monthOfYear, dayOfMonth)
@@ -68,8 +69,10 @@ class InfoView : Fragment() {
         val sunsetTV = sunsetTimeTV
         Log.d("SUNRISE Unformatted", srise.toString())
 
-        sunriseTV.setText(sdf.format(srise))
-        sunsetTV.setText(sdf.format(sset))
+        sunrise = sdf.format(srise)
+        sunset = sdf.format(sset)
+        sunriseTV.text = sunrise
+        sunsetTV.text = sunset
     }
 
     internal var dateChangeHandler: DatePicker.OnDateChangedListener =
