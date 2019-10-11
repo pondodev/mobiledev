@@ -25,8 +25,7 @@ class AddDate : AppCompatActivity() {
         val tz = txtTimezone.text.toString()
         val data = name + "," + lat + "," + lon + "," + tz + "\n"
 
-        //val fos = openFileOutput("au_locations.txt", Context.MODE_PRIVATE)
-        val file = File("locations.txt")
+        val file = File(filesDir, "locations.txt")
         val fos = FileOutputStream(file, true)
         fos.write(data.toByteArray())
         finish()
