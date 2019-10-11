@@ -1,13 +1,19 @@
 package au.edu.swin.sdmd.sunrisekotlin
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import au.edu.swin.sdmd.sunrisekotlin.calc.AddDate
 import au.edu.swin.sdmd.sunrisekotlin.calc.AstronomicalCalendar
 import au.edu.swin.sdmd.sunrisekotlin.calc.GeoLocation
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.intentFor
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.text.SimpleDateFormat
@@ -18,7 +24,29 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // check if the file already exists (don't want to overwrite it!)
+        if (!getFileStreamPath("locations.txt").exists()) {
+            writeToInternaleStorage()
+        }
         initializeUI()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_activity_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        startActivityForResult(intentFor<AddDate>(), 1)
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+        populateDropDown(year, month, day)
     }
 
     private fun initializeUI() {
@@ -29,10 +57,13 @@ class MainActivity : AppCompatActivity() {
         val day = cal.get(Calendar.DAY_OF_MONTH)
         dp.init(year, month, day, dateChangeHandler) // setup initial values and reg. handler
         updateTime(year, month, day)
+        populateDropDown(year, month, day)
+    }
 
+    private fun populateDropDown(year: Int, month: Int, day: Int) {
         // reading in the file
         var options = ArrayList<String>()
-        val file = resources.openRawResource(R.raw.au_locations)
+        val file = openFileInput("locations.txt")
         val reader = InputStreamReader(file)
         val buffReader = BufferedReader(reader)
 
@@ -60,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 val timezone: String
 
                 // read file for our location
-                val file = resources.openRawResource(R.raw.au_locations)
+                val file = openFileInput("locations.txt")
                 val reader = InputStreamReader(file)
                 val buffReader = BufferedReader(reader)
                 var line = buffReader.readLine()
@@ -124,4 +155,17 @@ class MainActivity : AppCompatActivity() {
                 dayOfMonth
             )
         }
+    private fun writeToInternaleStorage() {
+        val file = resources.openRawResource(R.raw.au_locations)
+        val fos = openFileOutput("locations.txt", Context.MODE_PRIVATE)
+
+        val reader = InputStreamReader(file)
+        val buffReader = BufferedReader(reader)
+        var line = buffReader.readLine()
+
+        while (line != null) {
+            fos.write((line + "\n").toByteArray())
+            line = buffReader.readLine()
+        }
+    }
 }
