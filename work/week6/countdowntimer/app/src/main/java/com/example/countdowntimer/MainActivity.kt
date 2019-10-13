@@ -14,17 +14,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClick(view: View) {
-        /*try {
-            for (i in 0..3) {
-                Thread.sleep(1000)
-                display.text = i.toString()
-            }
-        } catch (ie: InterruptedException) {
-            ie.printStackTrace()
-        }*/
         timer().execute() // run our async task
     }
 
+    // class that does our async stuff. must be internal to the class we're doing the task from
     internal inner class timer : AsyncTask<Void, Int, Int>() {
 
         // where we do our timer stuff
@@ -32,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 for (i in 0..3) {
                     Thread.sleep(1000)
-                    publishProgress(i)
+                    publishProgress(i) // can't modify the UI from this thread so we pass the value to the UI thread
                 }
             } catch (ie: InterruptedException) {
                 ie.printStackTrace()
