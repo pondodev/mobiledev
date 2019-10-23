@@ -1,6 +1,5 @@
 package au.edu.swin.movieratingskotlin
 
-import android.util.Log
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream

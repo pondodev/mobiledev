@@ -1,14 +1,15 @@
 package au.edu.swin.movieratingskotlin
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -26,19 +27,13 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    /* lazy initialise will only initialise movie list when its requested */
-    private val movies: ArrayList<Movie> by lazy {
-        Movie.loadFromFile(resources.openRawResource(R.raw.ratings))
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        initializeUI()
+        loadMovies().execute()
     }
 
-    private fun initializeUI()
+    private fun initializeUI(movies: ArrayList<Movie>)
     {
         val listView = findViewById<ListView>(R.id.list)
         listView.adapter = RowIconAdapter(this, R.layout.listrow, R.id.row_label, movies)
@@ -117,6 +112,31 @@ class MainActivity : AppCompatActivity() {
             g = (g + 128) % 256
             b = (b + 128) % 256
             return Color.rgb(r, g, b)
+        }
+    }
+
+    internal inner class loadMovies : AsyncTask<Void, Void, ArrayList<Movie>>() {
+
+        lateinit var loadingDialog: ProgressDialog
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            loadingDialog = ProgressDialog.show(this@MainActivity, "", "Loading...")
+        }
+
+        override fun doInBackground(vararg p0: Void?): ArrayList<Movie> {
+            Thread.sleep(3000)
+            return Movie.loadFromFile(resources.openRawResource(R.raw.ratings))
+        }
+
+        override fun onPostExecute(result: ArrayList<Movie>?) {
+            super.onPostExecute(result)
+            loadingDialog.dismiss()
+
+            if (result != null)
+                initializeUI(result)
+            else
+                initializeUI(ArrayList())
         }
     }
 }
